@@ -109,5 +109,5 @@ Vitalisync is an open-source project aimed at improving global health awareness 
 ### Contact
 For any questions, feedback, or contributions, feel free to reach out:
 
-- **Email:** [contact@vitalisync.com](mailto:contact@vitalisync.com)
+- **Email:** [sarveshwar313@gmail.com](mailto:sarveshwar313@gmail.com)
 - **GitHub Repository:** [Vitalisync GitHub](https://github.com/SarveshwarSenthilKumar/Vitalisync)
