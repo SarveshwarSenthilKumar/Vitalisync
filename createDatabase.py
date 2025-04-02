@@ -11,7 +11,6 @@ fields = [
     #Personal Information for Account Setup and Maintenance
           "username NOT NULL", 
           "password NOT NULL",
-          "salt",
           "dateJoined",
           "accountStatus",
           "role", #Possible Doctor or Volunteer?
@@ -57,6 +56,9 @@ fields = [
           "preferredNotifications",
           "privacySettings"
         ]
+
+
+#Easily converatble to MySQL or other databases due to iterative strategy as opposed to hardcoding the db create string, also improves readability and ease of maintenance and adding new fields
 
 dbCreateString = "CREATE TABLE users (id INTEGER, "
 
