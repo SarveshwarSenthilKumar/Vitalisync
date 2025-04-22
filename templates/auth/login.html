@@ -3,95 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Flask Development Template</title>
+    <title>Login - Vitalisync</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, #4f46e5 0%, #10b981 100%);
+            --error: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #282c34;
-            color: white;
-            text-align: center;
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: url('https://i.ibb.co/W4pYgBnF/Vitalisync-Icon.png');
+            background-size: 40%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(248, 250, 252, 0.9);
         }
+        
         .container {
-            max-width: 400px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
         }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--gradient);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.75rem;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
         h1 {
             font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        input {
-            width: calc(100% - 20px);
-            padding: 12px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background-color: #fff;
-            color: #000;
-            font-size: 1rem;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background-color: #61dafb;
-            color: black;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #4fa3d1;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 1rem;
-            opacity: 0.9;
-            font-weight: bold;
-            background: linear-gradient(90deg, #61dafb, #4fa3d1);
-            padding: 10px;
-            border-radius: 5px;
-            display: inline-block;
-        }
+        
         .error-message {
-            background-color: #ff4d4d;
+            background-color: var(--error);
             color: white;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+            display: {% if error %}block{% else %}none{% endif %};
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
             font-size: 1rem;
-            font-weight: bold;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+            background-color: white;
+        }
+        
+        .form-group i {
+            position: absolute;
+            right: 1rem;
+            top: 3.1rem;
+            color: #94a3b8;
+        }
+        
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: var(--gradient);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+        }
+        
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(79, 70, 229, 0.3);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        .secondary-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            background: white;
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .secondary-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .forgot-password a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Animation */
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+                background-size: 70%;
+            }
+            
+            .container {
+                padding: 2rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo img {
+                height: 35px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Login</h1>
-
-        <div id="error-message" class="error-message" 
-            {% if error %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+    <div class="container floating">
+        <div class="logo">
+            <img src="https://i.ibb.co/W4pYgBnF/Vitalisync-Icon.png" alt="Vitalisync Logo">
+            Vitalisync
+        </div>
+        
+        <h1>Welcome Back</h1>
+        
+        <div id="error-message" class="error-message">
             {{ error }}
         </div>
 
-
         <form action="/auth/login" method="POST">
-            <input name="username" type="text" placeholder="Username" required>
-            <input name="password" type="password" placeholder="Password" required>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input name="username" type="text" placeholder="Enter your username" required>
+                <i class="fas fa-user"></i>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input name="password" type="password" placeholder="Enter your password" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            
+            <div class="forgot-password">
+                <a href="/auth/forgot-password">Forgot password?</a>
+            </div>
+            
             <button type="submit">Login</button>
         </form>
-        <button onclick="location.href='/'">Back to Home</button>
-        <button onclick="location.href='/signup'">Sign Up</button>
-        <div class="footer">Flask Development Template - Created by Sarveshwar Senthil Kumar</div>
+        
+        <div class="divider">OR</div>
+        
+        <button class="secondary-button" onclick="location.href='/'">
+            <i class="fas fa-home"></i> Back to Home
+        </button>
+        
+        <a href="/auth/signup" class="secondary-button">
+            <i class="fas fa-user-plus"></i> Create New Account
+        </a>
+        
+        <div class="footer">
+            By logging in, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+        </div>
     </div>
 
+    <script>
+        // Simple animation for error message
+        if (document.getElementById('error-message').textContent.trim() !== '') {
+            const errorMsg = document.getElementById('error-message');
+            errorMsg.style.display = 'block';
+            
+            // Add shake animation
+            errorMsg.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                errorMsg.style.animation = '';
+            }, 500);
+        }
+        
+        // Add shake animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20% { transform: translateX(-10px); }
+                40% { transform: translateX(10px); }
+                60% { transform: translateX(-10px); }
+                80% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
