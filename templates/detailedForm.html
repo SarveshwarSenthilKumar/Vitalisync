@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Profile - Vitalisync</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, #4f46e5 0%, #10b981 100%);
+            --error: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 2rem;
+            background-image: url('https://i.ibb.co/W4pYgBnF/Vitalisync-Icon.png');
+            background-size: 40%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(248, 250, 252, 0.9);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            margin: 2rem auto;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--gradient);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.75rem;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 50%;
+            background: var(--gradient);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-section h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-section h2 i {
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+            background-color: white;
+        }
+        
+        .form-group .radio-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .form-group .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-group .radio-option input {
+            width: auto;
+        }
+        
+        .form-group .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .form-group .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-group .checkbox-option input {
+            width: auto;
+        }
+        
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: var(--gradient);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+        }
+        
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(79, 70, 229, 0.3);
+        }
+        
+        .skip-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+        
+        .skip-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+                background-size: 70%;
+            }
+            
+            .container {
+                padding: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .logo img {
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.ibb.co/W4pYgBnF/Vitalisync-Icon.png" alt="Vitalisync Logo">
+            Vitalisync
+        </div>
+        
+        <h1>Complete Your Profile</h1>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        
+        <form action="/profile/complete" method="POST">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h2><i class="fas fa-user-circle"></i> Personal Information</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="date_of_birth">Date of Birth</label>
+                        <input type="date" name="date_of_birth" id="date_of_birth" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer_not_to_say">Prefer not to say</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number</label>
+                        <input type="tel" name="phone_number" id="phone_number" placeholder="+1 (123) 456-7890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" name="address" id="address" placeholder="123 Main St, City, Country">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Health Profile Section -->
+            <div class="form-section">
+                <h2><i class="fas fa-heartbeat"></i> Health Profile</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="blood_type">Blood Type</label>
+                        <select name="blood_type" id="blood_type">
+                            <option value="">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" name="height" id="height" placeholder="175">
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" name="weight" id="weight" placeholder="70">
+                    </div>
+                    <div class="form-group">
+                        <label for="allergies">Known Allergies</label>
+                        <input type="text" name="allergies" id="allergies" placeholder="Peanuts, Penicillin, etc.">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="medical_conditions">Existing Medical Conditions</label>
+                    <textarea name="medical_conditions" id="medical_conditions" rows="3" placeholder="Diabetes, Hypertension, etc."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="future_goals">Future Health Goals</label>
+                    <textarea name="future_goals" id="future_goals" rows="3" placeholder="Lower my weight bby 10kg, lower my A1C by 2 points, etc."></textarea>
+                </div>
+            </div>
+            
+            <!-- Notification Preferences -->
+            <div class="form-section">
+                <h2><i class="fas fa-bell"></i> Notification Preferences</h2>
+                <div class="form-group">
+                    <label>How would you like to receive notifications?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="notify_email" id="notify_email" checked>
+                            <label for="notify_email">Email</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="notify_sms" id="notify_sms">
+                            <label for="notify_sms">SMS</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="notify_push" id="notify_push" checked>
+                            <label for="notify_push">Push Notifications</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Notification Types</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="notify_health_alerts" id="notify_health_alerts" checked>
+                            <label for="notify_health_alerts">Health Alerts</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="notify_app_updates" id="notify_app_updates" checked>
+                            <label for="notify_app_updates">App Updates</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="notify_newsletter" id="notify_newsletter">
+                            <label for="notify_newsletter">Newsletter</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Privacy & Security -->
+            <div class="form-section">
+                <h2><i class="fas fa-shield-alt"></i> Privacy & Security</h2>
+                <div class="form-group">
+                    <label>Two-Factor Authentication</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="two_factor_auth" id="two_factor_enabled" value="enabled">
+                            <label for="two_factor_enabled">Enabled</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="two_factor_auth" id="two_factor_disabled" value="disabled" checked>
+                            <label for="two_factor_disabled">Disabled</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Data Sharing Preferences</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="share_anonymous_data" id="share_anonymous_data" checked>
+                            <label for="share_anonymous_data">Share anonymous health data for research</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" name="show_in_community" id="show_in_community" checked>
+                            <label for="show_in_community">Show my profile in community features</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit">Complete Profile</button>
+            <a href="/dashboard" class="skip-link">Skip for now, I'll complete this later</a>
+        </form>
+    </div>
+
+    <script>
+        // Update progress bar as user fills out form
+        const form = document.querySelector('form');
+        const progressBar = document.querySelector('.progress');
+        
+        form.addEventListener('input', () => {
+            const inputs = form.querySelectorAll('input, select, textarea');
+            let filledCount = 0;
+            
+            inputs.forEach(input => {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    if (input.checked) filledCount++;
+                } else if (input.value.trim() !== '') {
+                    filledCount++;
+                }
+            });
+            
+            const progress = (filledCount / inputs.length) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+        });
+    </script>
+</body>
+</html>
